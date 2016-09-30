@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE plugin SYSTEM "manifest.dtd">
+<plugin version="2">
+	<info>
+		<version>0.0.1</version>
+		<name>webapp-privacyidea</name>
+		<title>Two-factor authentication</title>
+		<author>Daniel Rauer, bytemine GmbH</author>
+		<authorURL>https://www.bytemine.net</authorURL>
+		<description>Plugin to support two-factor authentication with privacyIDEA</description>
+	</info>
+        <config>
+                <configfile>config.php</configfile>
+        </config>
+        <translations>
+                <translationsdir>languages</translationsdir>
+        </translations>
+	<components>
+		<component>
+			<info>
+				<name>privacyideaaplugin</name>
+				<title>privacyIDEAPlugin</title>
+				<author>Daniel Rauer, bytemine GmbH</author>
+				<description>Two-factor authentication</description>
+			</info>
+			<files>
+				<client>
+					<clientfile load="release">js/data/Configuration.js</clientfile>
+					<clientfile load="release">js/data/ResponseHandler.js</clientfile>
+					<clientfile load="release">js/PrivacyIDEAPlugin.js</clientfile>
+					<clientfile load="release">js/settings/SettingsPrivacyIDEACategory.js</clientfile>
+					<clientfile load="release">js/settings/SettingsPrivacyIDEAWidget.js</clientfile>
+				</client>
+				<server>
+					<serverfile>php/plugin.privacyidea.php</serverfile>
+					<serverfile type="module" module="privacyideamodule">php/class.privacyideamodule.php</serverfile>
+				</server>
+				<resources>
+                                        <resourcefile load="release">resources/css/privacyidea.css</resourcefile>
+				</resources>
+                        </files>
+		</component>
+	</components>
+</plugin>
