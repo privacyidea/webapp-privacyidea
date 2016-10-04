@@ -16,7 +16,7 @@ Zarafa.plugins.privacyidea.settings.SettingsPrivacyIDEACategory = Ext.extend(Zar
 	{
         	a = a || {};
 		Ext.applyIf(a, {
-			title: dgettext("plugin_privacyidea", "Two-factor authentication"),
+			title: dgettext("plugin_privacyidea", "PrivacyIDEA 2FA"),
 			categoryIndex: 1,
 			iconCls: "icon_privacyidea_category",
 			items: [{

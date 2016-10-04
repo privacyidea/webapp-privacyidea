@@ -15,6 +15,16 @@
 define('PLUGIN_PRIVACYIDEA_APPNAME', 'WebApp');
 
 /**
+ * URL of the privacyIDEA server
+ */
+define('PLUGIN_PRIVACYIDEA_VALIDATION_SERVER', '');
+
+/**
+ * Radius secret
+ */
+define('PLUGIN_PRIVACYIDEA_RADIUS_SECRET', '');
+
+/**
  * Enable/Disable plugin
  * Default for new users, this doesn't mean the activation of two-factor authentication!
  */

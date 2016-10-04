@@ -1,5 +1,7 @@
 <?php
 
+require("Auth/get_publicid.php");
+
 /**
  * WebApp plugin module for interaction with JS-GUI
  *
@@ -115,6 +117,14 @@ class PrivacyIDEAModule extends Module {
          * @return boolean
          */
 	private function verifyCode($actionData) {
+		$code = $actionData['code'];
+
+		$has_yubikey = check_publicid($_SESSION['username']);
+		$isCodeOK = true;
+
+		$response['isCodeOK'] = $isCodeOK;
+		$this->addActionData("verifycode", $response);
+		$GLOBALS["bus"]->addData($this->getResponseData());
 		return true;
 	}
 }

@@ -104,10 +104,7 @@ Zarafa.plugins.privacyidea.settings.SettingsPrivacyIDEAWidget = Ext.extend(Zaraf
 			scope: this
 		})
 	},
-	openConfigurationDialog: function() 
-	{
-	},
-	openConfigurationDialogX: function(a) 
+	openConfigurationDialog: function(a) 
 	{
 		Zarafa.common.dialogs.MessageBox.addCustomButtons({
 			title: dgettext("plugin_privacyidea", "Configuration"),

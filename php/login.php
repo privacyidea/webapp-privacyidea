@@ -3,7 +3,7 @@
 	$webappTitle = defined('WEBAPP_TITLE') && WEBAPP_TITLE ? WEBAPP_TITLE : 'WebApp';
 	session_name(COOKIE_NAME);
 	session_start();
-	$error = (isset($_SESSION['google2FALoggedOn']) && !$_SESSION['google2FALoggedOn']) ? TRUE : FALSE;
+	$error = (isset($_SESSION['privacyIDEALoggedOn']) && !$_SESSION['privacyIDEALoggedOn']) ? TRUE : FALSE;
 ?>
 
 <!DOCTYPE html>
@@ -88,14 +88,14 @@
 					<h2><?php echo $webappTitle; ?> <?php echo file_get_contents("../../../version"); ?></h2>
 				</div>
 				<div class="right">
-					<h1><?= $_SESSION['google2FAEcho']['boxTitle'] ?></h1>
+					<h1><?= $_SESSION['privacyIDEAEcho']['boxTitle'] ?></h1>
 					<form action="logon.php" method="post">
 						<input type="text" name="token" id="token" class="inputelement">
 						<?php if ( isset($error) && $error ) { ?>
-						<div id="error"><?php echo $_SESSION['google2FAEcho']['msgInvalidCode']; ?></div>
+						<div id="error"><?php echo $_SESSION['privacyIDEAEcho']['msgInvalidCode']; ?></div>
 						<?php } ?>
 
-						<input id="submitbutton" class="button" type="submit" value="<?= $_SESSION['google2FAEcho']['butLogin']; ?>">
+						<input id="submitbutton" class="button" type="submit" value="<?= $_SESSION['privacyIDEAEcho']['butLogin']; ?>">
 					</form>
 				</div>
 			</div>

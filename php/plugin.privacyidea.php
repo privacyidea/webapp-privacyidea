@@ -37,9 +37,8 @@ class PluginPrivacyIDEA extends Plugin {
 	function execute($eventID, &$data) {
 		switch($eventID) {
                         case 'server.core.settings.init.before' :
-
-                                $this->injectPluginSettings($data);
-                                break;
+			        $this->injectPluginSettings($data);
+				break;
 
 			case 'server.index.load.main.before' : // don't use the logon trigger because we need the settings
 
@@ -144,7 +143,9 @@ class PluginPrivacyIDEA extends Plugin {
 							'enable_but_conf' => PLUGIN_PRIVACYIDEA_ENBUTCONF,
 							'enable_but_activ' => PLUGIN_PRIVACYIDEA_ENBUTACTIV,
 							'enable_but_reset' => PLUGIN_PRIVACYIDEA_ENBUTTRESET,
-							'activate' => PLUGIN_PRIVACYIDEA_ACTIVATE
+							'activate' => PLUGIN_PRIVACYIDEA_ACTIVATE,
+							'validation_server' => PLUGIN_PRIVACYIDEA_VALIDATION_SERVER,
+							'radius_secret' => PLUGIN_PRIVACYIDEA_RADIUS_SECRET
 						)
 					)
 				)

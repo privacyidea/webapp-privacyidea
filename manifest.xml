@@ -2,9 +2,9 @@
 <!DOCTYPE plugin SYSTEM "manifest.dtd">
 <plugin version="2">
 	<info>
-		<version>0.0.1</version>
-		<name>webapp-privacyidea</name>
-		<title>Two-factor authentication</title>
+		<version>0.1.0</version>
+		<name>privacyidea</name>
+		<title>PrivacyIDEA</title>
 		<author>Daniel Rauer, bytemine GmbH</author>
 		<authorURL>https://www.bytemine.net</authorURL>
 		<description>Plugin to support two-factor authentication with privacyIDEA</description>
@@ -21,7 +21,7 @@
 				<name>privacyideaaplugin</name>
 				<title>privacyIDEAPlugin</title>
 				<author>Daniel Rauer, bytemine GmbH</author>
-				<description>Two-factor authentication</description>
+				<description>PrivacyIDEA</description>
 			</info>
 			<files>
 				<client>
