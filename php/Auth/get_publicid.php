@@ -1,5 +1,7 @@
 <?php
 
+include("../config.php");
+
 function derive_uid($username) {
 
 	$uid= $username;
@@ -15,7 +17,7 @@ function derive_uid($username) {
 }
 
 function derive_base_dn($username) {
-	global $hosted;
+	$hosted = true;
 	
 	if($hosted) {
 		if (strpos($username, "@")) {
@@ -33,23 +35,28 @@ function derive_base_dn($username) {
 }
 
 function check_publicid($uid) {
-    $ldap_host = "127.0.0.1";
+    $ldap_host = PLUGIN_PRIVACYIDEA_LDAP_HOST;
+    $ldap_port = PLUGIN_PRIVACYIDEA_LDAP_PORT;
+    $ldap_user_group = PLUGIN_PRIVACYIDEA_LDAP_USER_GROUP;
+    $ldap_search_base_config = PLUGIN_PRIVACYIDEA_LDAP_SEARCH_BASE;
+    $ldap_username_attribute_config = PLUGIN_PRIVACYIDEA_LDAP_USERNAME_ATTRIBUTE;
+    $ldap_yubikey_attribute_config = PLUGIN_PRIVACYIDEA_LDAP_YUBIKEY_ATTRIBUTE;
 
     $base_dn = derive_base_dn($uid);
 
     $uid_l = derive_uid($uid);
 
-    $ldap_search_base = "$base_dn,dc=bytemine,dc=net";
+    $ldap_search_base = "$base_dn,$ldap_search_base_config";
 
     //This attribute will be returned and will be matched with the used username
-    $ldap_username_attribute = "uid";
+    $ldap_username_attribute = "$ldap_username_attribute_config";
 
     //This attribute will contain the 12bits publicid of the users OTP.
-    $ldap_yubikey_attribute = "carlicense";
+    $ldap_yubikey_attribute = "$ldap_yubikey_attribute_config";
 
     $public_id = "";
 
-    $ds=ldap_connect($ldap_host);
+    $ds=ldap_connect($ldap_host, $ldap_port);
 
     ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
     ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
@@ -73,21 +80,25 @@ function check_publicid($uid) {
 
 function get_publicid($publicid) {
 	global $hosted;
+        $ldap_host = PLUGIN_PRIVACYIDEA_LDAP_HOST;
+        $ldap_port = PLUGIN_PRIVACYIDEA_LDAP_PORT;
+        $ldap_user_group = PLUGIN_PRIVACYIDEA_LDAP_USER_GROUP;
+        $ldap_search_base_config = PLUGIN_PRIVACYIDEA_LDAP_SEARCH_BASE;
+        $ldap_username_attribute_config = PLUGIN_PRIVACYIDEA_LDAP_USERNAME_ATTRIBUTE;
+        $ldap_yubikey_attribute_config = PLUGIN_PRIVACYIDEA_LDAP_YUBIKEY_ATTRIBUTE;
 
-        $ldap_host = "127.0.0.1";
-        
-        $ldap_search_base = "dc=bytemine,dc=net";
+        $ldap_search_base = "$ldap_search_base_config";
 
         //This attribute will be returned and will be matched with the used username
         $ldap_username_attribute = "dn";
         $dn = "";
 
         //This attribute will contain the 12bits publicid of the users OTP.
-        $ldap_yubikey_attribute = "carlicense";
+        $ldap_yubikey_attribute = "$ldap_yubikey_attribute_config";
 
         /////////////////////////////////////////////////////////////////////////////
         //No further configuration necessary!
-        $ds=ldap_connect($ldap_host);  // must be a valid LDAP server!
+        $ds=ldap_connect($ldap_host, $ldap_port);  // must be a valid LDAP server!
 	ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
 	ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
 

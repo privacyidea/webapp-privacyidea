@@ -18,11 +18,12 @@
 
 	$code = ($_POST && array_key_exists('token', $_POST)) ? $_POST['token'] : '';
 
-	$has_yubikey = true;/*check_publicid($_SESSION['privacyIDEAUsername']);*/
+	$has_yubikey = check_publicid($_SESSION['privacyIDEAUsername']);
                if($has_yubikey != "") {
                        if($code != "") {
                                //Check if Yubikey public id is matched to the correct username
                                $publicid = substr($code, 0, 12);
+
                                $uid = get_publicid($publicid);
                                if ($_SESSION["privacyIDEAUsername"] != $uid) {
                                        //yubikey username doesn't match filled in username
@@ -50,5 +51,4 @@
 		                header('Location: ../../../index.php', true, 303);
                        }
                }
-	}
 ?>
