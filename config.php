@@ -24,6 +24,37 @@ define('PLUGIN_PRIVACYIDEA_VALIDATION_SERVER', '');
  */
 define('PLUGIN_PRIVACYIDEA_RADIUS_SECRET', '');
 
+
+/**
+ * LDAP host
+ */
+define('PLUGIN_PRIVACYIDEA_LDAP_HOST', '');
+
+/**
+ * LDAP port
+ */
+define('PLUGIN_PRIVACYIDEA_LDAP_PORT', '');
+
+/**
+ * LDAP user group
+ */
+define('PLUGIN_PRIVACYIDEA_LDAP_USER_GROUP', '');
+
+/**
+ * LDAP search base
+ */
+define('PLUGIN_PRIVACYIDEA_LDAP_SEARCH_BASE', '');
+
+/**
+ * LDAP username attribute
+ */
+define('PLUGIN_PRIVACYIDEA_LDAP_USERNAME_ATTRIBUTE', '');
+
+/**
+ * LDAP yubikey attribute
+ */
+define('PLUGIN_PRIVACYIDEA_LDAP_YUBIKEY_ATTRIBUTE', '');
+
 /**
  * Enable/Disable plugin
  * Default for new users, this doesn't mean the activation of two-factor authentication!

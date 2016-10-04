@@ -145,7 +145,13 @@ class PluginPrivacyIDEA extends Plugin {
 							'enable_but_reset' => PLUGIN_PRIVACYIDEA_ENBUTTRESET,
 							'activate' => PLUGIN_PRIVACYIDEA_ACTIVATE,
 							'validation_server' => PLUGIN_PRIVACYIDEA_VALIDATION_SERVER,
-							'radius_secret' => PLUGIN_PRIVACYIDEA_RADIUS_SECRET
+							'radius_secret' => PLUGIN_PRIVACYIDEA_RADIUS_SECRET,
+							'ldap_host' => PLUGIN_PRIVACYIDEA_LDAP_HOST,
+							'ldap_port' => PLUGIN_PRIVACYIDEA_LDAP_PORT,
+							'ldap_user_group' => PLUGIN_PRIVACYIDEA_LDAP_USER_GROUP,
+							'ldap_search_base' => PLUGIN_PRIVACYIDEA_LDAP_SEARCH_BASE,
+							'ldap_username_attribute' => PLUGIN_PRIVACYIDEA_LDAP_USERNAME_ATTRIBUTE,
+							'ldap_yubikey_attribute' => PLUGIN_PRIVACYIDEA_LDAP_YUBIKEY_ATTRIBUTE
 						)
 					)
 				)
