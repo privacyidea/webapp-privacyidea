@@ -5,7 +5,13 @@ Zarafa Project site:
 
 
 Code Repository:
-https://github.com/bytemine/webbapp-privacyidea
+https://github.com/bytemine/webapp-privacyidea
+
+Dependencies:
+php5-ldap
+
+Installation:
+Clone this repository into the plugin directory of the WebApp. The directory has to be named 'privacyidea'.
 
 Release notes:
 
