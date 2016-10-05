@@ -80,10 +80,6 @@ class PluginPrivacyIDEA extends Plugin {
 						break;
 					}
 
-                                        $encryptionStore = EncryptionStore::getInstance();
-                                        $username = $encryptionStore->get('username');
-                                        $password = $encryptionStore->get('password');
-
 					// Check if the LDAP object of the user has the yubikey attribute set
 					if (!has_yubikey_attribute($username)) {
 						break;
