@@ -8,10 +8,11 @@ Code Repository:
 https://github.com/bytemine/webapp-privacyidea
 
 Dependencies:
-php5-ldap
+php5-ldap, php5-radius
 
 Installation:
 Clone this repository into the plugin directory of the WebApp. The directory has to be named 'privacyidea'.
+Add the following to your php.ini: fileextension=radius.so
 
 Release notes:
 
