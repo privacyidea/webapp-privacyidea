@@ -29,7 +29,7 @@ Zarafa.plugins.privacyidea.settings.SettingsPrivacyIDEAWidget = Ext.extend(Zaraf
 				text: dgettext("plugin_privacyidea", "Configuration"),
 				handler: this.openConfigurationDialog,
 				scope: this,
-				disabled: !container.getSettingsModel().get("zarafa/v1/plugins/privacyidea/enable_but_conf"),
+				disabled: !container.getSettingsModel().get("zarafa/v1/plugins/privacyidea/enable_but_conf") || !container.getSettingsModel().get("zarafa/v1/plugins/privacyidea/has_yubikey_attribute"),
 				width: 250
 			}, {
 				xtype: "displayfield",
@@ -51,7 +51,7 @@ Zarafa.plugins.privacyidea.settings.SettingsPrivacyIDEAWidget = Ext.extend(Zaraf
 				text: dgettext("plugin_privacyidea", "Activation/Deactivation"),
 				handler: this.activate,
 				scope: this,
-				disabled: !container.getSettingsModel().get("zarafa/v1/plugins/privacyidea/enable_but_activ"),
+				disabled: !container.getSettingsModel().get("zarafa/v1/plugins/privacyidea/enable_but_activ") || !container.getSettingsModel().get("zarafa/v1/plugins/privacyidea/has_yubikey_attribute"),
 				width: 250
 			}, {
 				xtype: "displayfield",
