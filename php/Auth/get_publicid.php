@@ -9,41 +9,33 @@ include("config.php");
 }
 
 function derive_uid($username) {
-
-	$uid= $username;
+	$uid = $username;
 
 	if (strpos($username, "@")) {
-	
-            // i assume, that user logs in with uid@ou                          
-            $a_rdn = explode ("@", $username);                                  
-            $uid = $a_rdn[0];                                                   
-        } 
+
+            // i assume, that user logs in with uid@ou
+            $a_rdn = explode ("@", $username);
+            $uid = $a_rdn[0];
+        }
 
 	return "$uid";
 }
 
 function derive_base_dn($username) {
-	$hosted = true;
-	
-	if($hosted) {
-		if (strpos($username, "@")) {
-		
-		    // i assume, that user logs in with uid@ou                          
-		    $a_rdn = explode ("@", $username);                                  
-		    $uid = $a_rdn[0];                                                   
-		    $uid_domain = $a_rdn[1];
-		} 
+	if (strpos($username, "@")) {
 
-		return "uid=$uid,cn=users,ou=$uid_domain";
-	} else {
-		return "uid=$username";
+		// i assume, that user logs in with uid@ou
+		$a_rdn = explode ("@", $username);
+		$uid = $a_rdn[0];
+		$uid_domain = $a_rdn[1];
 	}
+
+	return "uid=$uid,cn=".PLUGIN_PRIVACYIDEA_LDAP_USER_GROUP.",ou=$uid_domain";
 }
 
 function has_yubikey_attribute($uid) {
     $ldap_host = PLUGIN_PRIVACYIDEA_LDAP_HOST;
     $ldap_port = PLUGIN_PRIVACYIDEA_LDAP_PORT;
-    $ldap_user_group = PLUGIN_PRIVACYIDEA_LDAP_USER_GROUP;
     $ldap_search_base_config = PLUGIN_PRIVACYIDEA_LDAP_SEARCH_BASE;
     $ldap_username_attribute_config = PLUGIN_PRIVACYIDEA_LDAP_USERNAME_ATTRIBUTE;
     $ldap_yubikey_attribute_config = PLUGIN_PRIVACYIDEA_LDAP_YUBIKEY_ATTRIBUTE;
@@ -60,16 +52,14 @@ function has_yubikey_attribute($uid) {
     //This attribute will contain the 12bits publicid of the users OTP.
     $ldap_yubikey_attribute = "$ldap_yubikey_attribute_config";
 
-    $public_id = "";
-
     $ds=ldap_connect($ldap_host, $ldap_port);
 
     ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
     ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
     $has_yubikey = false;
     if ($ds) {
-        $r=ldap_bind($ds);
-	$sr=ldap_search($ds, $ldap_search_base, "$ldap_username_attribute=$uid_l");
+        $r = ldap_bind($ds);
+	$sr = ldap_search($ds, $ldap_search_base, "$ldap_username_attribute=$uid_l");
 
         $info = ldap_first_entry($ds, $sr);
 
@@ -77,9 +67,10 @@ function has_yubikey_attribute($uid) {
 		$attribute = ldap_first_attribute($ds, $info);
 		while ($attribute) {
 			if($attribute == $ldap_yubikey_attribute_config) {
+				// found the attribute with the configured name in LDAP object of the user
 				$has_yubikey = true;
 			}
-			$attribute=ldap_next_attribute($ds,$info);
+			$attribute = ldap_next_attribute($ds, $info);
 		}
         }
 
@@ -89,55 +80,9 @@ function has_yubikey_attribute($uid) {
     return $has_yubikey;
 }
 
-function check_publicid($uid) {
-    $ldap_host = PLUGIN_PRIVACYIDEA_LDAP_HOST;
-    $ldap_port = PLUGIN_PRIVACYIDEA_LDAP_PORT;
-    $ldap_user_group = PLUGIN_PRIVACYIDEA_LDAP_USER_GROUP;
-    $ldap_search_base_config = PLUGIN_PRIVACYIDEA_LDAP_SEARCH_BASE;
-    $ldap_username_attribute_config = PLUGIN_PRIVACYIDEA_LDAP_USERNAME_ATTRIBUTE;
-    $ldap_yubikey_attribute_config = PLUGIN_PRIVACYIDEA_LDAP_YUBIKEY_ATTRIBUTE;
-
-    $base_dn = derive_base_dn($uid);
-
-    $uid_l = derive_uid($uid);
-
-    $ldap_search_base = "$base_dn,$ldap_search_base_config";
-
-    //This attribute will be returned and will be matched with the used username
-    $ldap_username_attribute = "$ldap_username_attribute_config";
-
-    //This attribute will contain the 12bits publicid of the users OTP.
-    $ldap_yubikey_attribute = "$ldap_yubikey_attribute_config";
-
-    $public_id = "";
-
-    $ds=ldap_connect($ldap_host, $ldap_port);
-
-    ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
-    ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
-
-    if ($ds) {
-        $r=ldap_bind($ds);
-
-	$sr=ldap_search($ds, $ldap_search_base, "$ldap_username_attribute=$uid_l");
-
-	$info = ldap_get_entries($ds, $sr);
-
-	if ($info["count"] == 1) {
-		$public_id = $info[0][$ldap_yubikey_attribute][0];
-	}
-
-    }
-	
-    ldap_close($ds);
-    return $public_id;
-}
-
 function get_publicid($publicid) {
-	$hosted = true;
         $ldap_host = PLUGIN_PRIVACYIDEA_LDAP_HOST;
         $ldap_port = PLUGIN_PRIVACYIDEA_LDAP_PORT;
-        $ldap_user_group = PLUGIN_PRIVACYIDEA_LDAP_USER_GROUP;
         $ldap_search_base_config = PLUGIN_PRIVACYIDEA_LDAP_SEARCH_BASE;
         $ldap_username_attribute_config = PLUGIN_PRIVACYIDEA_LDAP_USERNAME_ATTRIBUTE;
         $ldap_yubikey_attribute_config = PLUGIN_PRIVACYIDEA_LDAP_YUBIKEY_ATTRIBUTE;
@@ -151,17 +96,15 @@ function get_publicid($publicid) {
         //This attribute will contain the 12bits publicid of the users OTP.
         $ldap_yubikey_attribute = "$ldap_yubikey_attribute_config";
 
-        /////////////////////////////////////////////////////////////////////////////
-        //No further configuration necessary!
-        $ds=ldap_connect($ldap_host, $ldap_port);  // must be a valid LDAP server!
+        $ds = ldap_connect($ldap_host, $ldap_port);  // must be a valid LDAP server!
 	ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
 	ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
 
         if ($ds) {
 
-                $r=ldap_bind($ds);
+                $r = ldap_bind($ds);
 
-                $sr=ldap_search($ds, $ldap_search_base, "$ldap_yubikey_attribute=$publicid");
+                $sr = ldap_search($ds, $ldap_search_base, "$ldap_yubikey_attribute=$publicid");
 
                 $info = ldap_get_entries($ds, $sr);
 
@@ -176,17 +119,12 @@ function get_publicid($publicid) {
 
         ldap_close($ds);
 
-	$username_0= $a_dn[0];
-        $domain_0= $a_dn[2];
+	$username_0 = $a_dn[0];
+        $domain_0 = $a_dn[2];
 
-	$a_username= explode("=", $username_0);
-	$a_domain= explode("=", $domain_0);
-
-	if($hosted) { 
-		$username= $a_username[1] ."@". $a_domain[1];
-	} else {
-		$username= $a_username[1];
-	}
+	$a_username = explode("=", $username_0);
+	$a_domain = explode("=", $domain_0);
+	$username = $a_username[1] ."@". $a_domain[1];
 
         return($username);
 
