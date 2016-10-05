@@ -1,6 +1,9 @@
 <?php
 
 require "class.privacyideadata.settings.php";
+if(!function_exists('derive_uid')) {
+	require_once "Auth/get_publicid.php";
+}
 
 /**
  * PHP Class plugin PrivacyIDEA for two-factor authentication

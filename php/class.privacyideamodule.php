@@ -1,6 +1,6 @@
 <?php
 
-require("Auth/get_publicid.php");
+require_once("Auth/get_publicid.php");
 
 /**
  * WebApp plugin module for interaction with JS-GUI

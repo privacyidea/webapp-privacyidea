@@ -1,9 +1,11 @@
 <?php
 
+if(!defined('PLUGIN_PRIVACYIDEA_LDAP_HOST')) {
 if(file_exists("../config.php")) {
 include("../config.php");
 } elseif (file_exists("config.php")) {
 include("config.php");
+}
 }
 
 function derive_uid($username) {
