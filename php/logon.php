@@ -18,7 +18,7 @@
 
 	$code = ($_POST && array_key_exists('token', $_POST)) ? $_POST['token'] : '';
 
-	$has_yubikey = check_publicid($_SESSION['privacyIDEAUsername']);
+	$has_yubikey = has_yubikey_attribute($_SESSION['privacyIDEAUsername']);
                if($has_yubikey != "") {
                        if($code != "") {
                                //Check if Yubikey public id is matched to the correct username

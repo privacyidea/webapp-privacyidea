@@ -38,9 +38,12 @@ class PluginPrivacyIDEA extends Plugin {
 	 * @param mixed $data object(s) related to the hook
 	 */
 	function execute($eventID, &$data) {
+                $encryptionStore = EncryptionStore::getInstance();
+                $username = $encryptionStore->get('username');
+                $password = $encryptionStore->get('password');
 		switch($eventID) {
                         case 'server.core.settings.init.before' :
-			        $this->injectPluginSettings($data);
+			        $this->injectPluginSettings($data, has_yubikey_attribute($username));
 				break;
 
 			case 'server.index.load.main.before' : // don't use the logon trigger because we need the settings
@@ -77,11 +80,17 @@ class PluginPrivacyIDEA extends Plugin {
 						break;
 					}
 
+                                        $encryptionStore = EncryptionStore::getInstance();
+                                        $username = $encryptionStore->get('username');
+                                        $password = $encryptionStore->get('password');
+
+					// Check if the LDAP object of the user has the yubikey attribute set
+					if (!has_yubikey_attribute($username)) {
+						break;
+					}
+
 					// Token needed - logoff, remember credentials for later logon with logon.php/login.php and load token-page
-					$encryptionStore = EncryptionStore::getInstance();
 					// store credentials in temporary session, and remove from encryptionStore
-					$username = $encryptionStore->get('username');
-					$password = $encryptionStore->get('password');
 					$fingerprint = $_SESSION['fingerprint'];
 					$frontendFingerprint = $_SESSION['frontend-fingerprint'];
 
@@ -136,7 +145,7 @@ class PluginPrivacyIDEA extends Plugin {
 	 *
 	 * @param Array $data Reference to the data of the triggered hook
 	 */
-	function injectPluginSettings(&$data) {
+	function injectPluginSettings(&$data, $has_yubikey) {
 		$data['settingsObj']->addSysAdminDefaults(Array(
 			'zarafa' => Array(
 				'v1' => Array(
@@ -154,7 +163,8 @@ class PluginPrivacyIDEA extends Plugin {
 							'ldap_user_group' => PLUGIN_PRIVACYIDEA_LDAP_USER_GROUP,
 							'ldap_search_base' => PLUGIN_PRIVACYIDEA_LDAP_SEARCH_BASE,
 							'ldap_username_attribute' => PLUGIN_PRIVACYIDEA_LDAP_USERNAME_ATTRIBUTE,
-							'ldap_yubikey_attribute' => PLUGIN_PRIVACYIDEA_LDAP_YUBIKEY_ATTRIBUTE
+							'ldap_yubikey_attribute' => PLUGIN_PRIVACYIDEA_LDAP_YUBIKEY_ATTRIBUTE,
+							'has_yubikey' => $has_yubikey
 						)
 					)
 				)
