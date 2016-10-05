@@ -8,6 +8,21 @@ include("config.php");
 }
 }
 
+function radius_auth($username, $code) {
+	$radius = radius_auth_open();
+	radius_add_server($radius, PLUGIN_PRIVACYIDEA_VALIDATION_SERVER, 0, PLUGIN_PRIVACYIDEA_RADIUS_SECRET, 5, 1);
+	radius_create_request($radius, RADIUS_ACCESS_REQUEST);
+	radius_put_attr($radius, RADIUS_USER_NAME, $_SESSION['privacyIDEAUsername']);
+	radius_put_attr($radius, RADIUS_USER_PASSWORD, $code);
+	$result = radius_send_request($radius);
+
+	if($result == 2) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function derive_uid($username) {
 	$uid = $username;
 
