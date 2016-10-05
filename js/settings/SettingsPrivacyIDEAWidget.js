@@ -22,12 +22,11 @@ Zarafa.plugins.privacyidea.settings.SettingsPrivacyIDEAWidget = Ext.extend(Zaraf
 				xtype: "displayfield",
 				hideLabel: true,
 				value: dgettext("plugin_privacyidea", "The two-factor authentication provides an additional protection for the Zarafa WebApp.") + "<br />" +
-					dgettext("plugin_privacyidea", "After activation you need next to your password an one-time code to log in.") + "<br />" + "<br />" +
-					dgettext("plugin_privacyidea", "To generate an one-time code, you have to configure an OTP device like a YubiKey.") + "<br />&nbsp;"
+					dgettext("plugin_privacyidea", "After activation you need a Yubikey OTP next to your password to log in.") + "<br />"
 			}, {
 				xtype: "button",
-				text: dgettext("plugin_privacyidea", "Configuration"),
-				handler: this.openConfigurationDialog,
+				text: dgettext("plugin_privacyidea", "Test Yubikey"),
+				handler: this.openVerifyCodeDialog,
 				scope: this,
 				disabled: !container.getSettingsModel().get("zarafa/v1/plugins/privacyidea/enable_but_conf") || !container.getSettingsModel().get("zarafa/v1/plugins/privacyidea/has_yubikey"),
 				width: 250
@@ -104,25 +103,9 @@ Zarafa.plugins.privacyidea.settings.SettingsPrivacyIDEAWidget = Ext.extend(Zaraf
 			scope: this
 		})
 	},
-	openConfigurationDialog: function(a) 
-	{
-		Zarafa.common.dialogs.MessageBox.addCustomButtons({
-			title: dgettext("plugin_privacyidea", "Configuration"),
-			msg: dgettext("plugin_privacyidea", "Please install an authentication App on second device:") + "<br />" +
-				dgettext("plugin_privacyidea", "Afterwards test the function with a generated code to ensure that the configurations are correct."),
-			fn: this.openVerifyCodeDialog,
-			customButton: [{
-                                text: dgettext("plugin_privacyidea", "Test"),
-                                name: "verify"
-                        }],
-			scope: this,
-			width: 500
-		})
-	},
 	openVerifyCodeDialog: function(a) 
 	{
-		if (a === "verify")
-			Zarafa.common.dialogs.MessageBox.prompt(dgettext("plugin_privacyidea", "Test generated code"), dgettext("plugin_privacyidea", "Please enter code"), this.verifyCode, this)
+		Zarafa.common.dialogs.MessageBox.prompt(dgettext("plugin_privacyidea", "Test Yubikey"), dgettext("plugin_privacyidea", "Please press Yubikey"), this.verifyCode, this)
 	},
 	verifyCode: function(a, b) 
 	{
