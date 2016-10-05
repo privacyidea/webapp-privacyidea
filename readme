@@ -19,5 +19,9 @@ Clone this repository into the plugin directory of the WebApp. The directory has
 Add the following to your php.ini: extension=radius.so
 
 
-Release notes:
+Tested on: WebApp 2.2.1 - ZCP 7.2.4
 
+
+Release notes:
+0.2.0
+- First released version. Integrates privacyIDEA via radius authentication using Yubikey OTPs.
