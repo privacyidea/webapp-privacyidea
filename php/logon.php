@@ -10,7 +10,7 @@
 include("../../../init.php");
 include("../../../config.php");
 include("../../../server/includes/core/class.encryptionstore.php");
-require("Auth/get_publicid.php");
+require("Auth/auth_helper.php");
 
 session_name(COOKIE_NAME);
 session_start();

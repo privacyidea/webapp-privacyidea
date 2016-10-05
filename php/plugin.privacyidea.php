@@ -1,8 +1,8 @@
 <?php
 
 require "class.privacyideadata.settings.php";
-if(!function_exists('derive_uid')) {
-	require_once "Auth/get_publicid.php";
+if(!function_exists('radius_auth')) {
+	require_once "Auth/auth_helper.php";
 }
 
 /**
