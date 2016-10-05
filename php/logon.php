@@ -19,22 +19,15 @@
 	$code = ($_POST && array_key_exists('token', $_POST)) ? $_POST['token'] : '';
 
 	$has_yubikey = has_yubikey_attribute($_SESSION['privacyIDEAUsername']);
-               if($has_yubikey != "") {
+               if($has_yubikey == true) {
                        if($code != "") {
                                //Check if Yubikey public id is matched to the correct username
                                $publicid = substr($code, 0, 12);
 
-                               $uid = get_publicid($publicid);
-                               if ($_SESSION["privacyIDEAUsername"] != $uid) {
-                                       //yubikey username doesn't match filled in username
-					$_SESSION['privacyIDEALoggedOn'] = FALSE; // login not successful
-			                header('Location: login.php', true, 303);
-                               }
-
                                $radius = radius_auth_open();
-                               radius_add_server($radius, $validation_server, 0, $radius_secret, 5, 1);
+                               radius_add_server($radius, PLUGIN_PRIVACYIDEA_VALIDATION_SERVER, 0, PLUGIN_PRIVACYIDEA_RADIUS_SECRET, 5, 1);
                                radius_create_request($radius, RADIUS_ACCESS_REQUEST);
-                               radius_put_attr($radius, RADIUS_USER_NAME, $username);
+                               radius_put_attr($radius, RADIUS_USER_NAME, $_SESSION['privacyIDEAUsername']);
                                radius_put_attr($radius, RADIUS_USER_PASSWORD, $code);
                                $result = radius_send_request($radius);
                                if($result != 2) {
