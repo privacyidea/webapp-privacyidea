@@ -38,6 +38,55 @@ function derive_base_dn($username) {
 	}
 }
 
+function has_yubikey_attribute($uid) {
+    $ldap_host = PLUGIN_PRIVACYIDEA_LDAP_HOST;
+    $ldap_port = PLUGIN_PRIVACYIDEA_LDAP_PORT;
+    $ldap_user_group = PLUGIN_PRIVACYIDEA_LDAP_USER_GROUP;
+    $ldap_search_base_config = PLUGIN_PRIVACYIDEA_LDAP_SEARCH_BASE;
+    $ldap_username_attribute_config = PLUGIN_PRIVACYIDEA_LDAP_USERNAME_ATTRIBUTE;
+    $ldap_yubikey_attribute_config = PLUGIN_PRIVACYIDEA_LDAP_YUBIKEY_ATTRIBUTE;
+
+    $base_dn = derive_base_dn($uid);
+
+    $uid_l = derive_uid($uid);
+
+    $ldap_search_base = "$base_dn,$ldap_search_base_config";
+
+    //This attribute will be returned and will be matched with the used username
+    $ldap_username_attribute = "$ldap_username_attribute_config";
+
+    //This attribute will contain the 12bits publicid of the users OTP.
+    $ldap_yubikey_attribute = "$ldap_yubikey_attribute_config";
+
+    $public_id = "";
+
+    $ds=ldap_connect($ldap_host, $ldap_port);
+
+    ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
+    ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
+    $has_yubikey = false;
+    if ($ds) {
+        $r=ldap_bind($ds);
+	$sr=ldap_search($ds, $ldap_search_base, "$ldap_username_attribute=$uid_l");
+
+        $info = ldap_first_entry($ds, $sr);
+
+        if ($info) {
+		$attribute = ldap_first_attribute($ds, $info);
+		while ($attribute) {
+			if($attribute == "$ldap_yubikey_attribute_config") {
+				$has_yubikey = true;
+			}
+			$attribute=ldap_next_attribute($ds,$info);
+		}
+        }
+
+    }
+
+    ldap_close($ds);
+    return $has_yubikey;
+}
+
 function check_publicid($uid) {
     $ldap_host = PLUGIN_PRIVACYIDEA_LDAP_HOST;
     $ldap_port = PLUGIN_PRIVACYIDEA_LDAP_PORT;
