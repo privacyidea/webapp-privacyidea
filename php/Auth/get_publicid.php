@@ -1,6 +1,10 @@
 <?php
 
+if(file_exists("../config.php")) {
 include("../config.php");
+} elseif (file_exists("config.php")) {
+include("config.php");
+}
 
 function derive_uid($username) {
 
