@@ -72,7 +72,6 @@ class PrivacyIDEAModule extends Module {
 	 */
 	private function resetConfiguration() {
 		PrivacyIDEAData::setActivate(false);
-		PrivacyIDEAData::setCryption("");
                 $response['isActivated'] = false;
 		$this->addActionData("resetconfiguration", $response);
 		$GLOBALS["bus"]->addData($this->getResponseData());
