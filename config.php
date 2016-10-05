@@ -15,45 +15,45 @@
 define('PLUGIN_PRIVACYIDEA_APPNAME', 'WebApp');
 
 /**
- * URL of the privacyIDEA server
+ * Hostname or IP of the privacyIDEA server
  */
-define('PLUGIN_PRIVACYIDEA_VALIDATION_SERVER', '');
+define('PLUGIN_PRIVACYIDEA_VALIDATION_SERVER', 'radius.example.com');
 
 /**
  * Radius secret
  */
-define('PLUGIN_PRIVACYIDEA_RADIUS_SECRET', '');
+define('PLUGIN_PRIVACYIDEA_RADIUS_SECRET', 'my_radius_secret');
 
 
 /**
- * LDAP host
+ * LDAP host and protocol
  */
-define('PLUGIN_PRIVACYIDEA_LDAP_HOST', '');
+define('PLUGIN_PRIVACYIDEA_LDAP_HOST', 'ldaps://ldap.example.com');
 
 /**
  * LDAP port
  */
-define('PLUGIN_PRIVACYIDEA_LDAP_PORT', '');
+define('PLUGIN_PRIVACYIDEA_LDAP_PORT', '636');
 
 /**
  * LDAP user group
  */
-define('PLUGIN_PRIVACYIDEA_LDAP_USER_GROUP', '');
+define('PLUGIN_PRIVACYIDEA_LDAP_USER_GROUP', 'users');
 
 /**
  * LDAP search base
  */
-define('PLUGIN_PRIVACYIDEA_LDAP_SEARCH_BASE', '');
+define('PLUGIN_PRIVACYIDEA_LDAP_SEARCH_BASE', 'dc=example,dc=com');
 
 /**
  * LDAP username attribute
  */
-define('PLUGIN_PRIVACYIDEA_LDAP_USERNAME_ATTRIBUTE', '');
+define('PLUGIN_PRIVACYIDEA_LDAP_USERNAME_ATTRIBUTE', 'uid');
 
 /**
  * LDAP yubikey attribute
  */
-define('PLUGIN_PRIVACYIDEA_LDAP_YUBIKEY_ATTRIBUTE', '');
+define('PLUGIN_PRIVACYIDEA_LDAP_YUBIKEY_ATTRIBUTE', 'carLicense');
 
 /**
  * Enable/Disable plugin
