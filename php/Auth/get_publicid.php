@@ -134,7 +134,7 @@ function check_publicid($uid) {
 }
 
 function get_publicid($publicid) {
-	global $hosted;
+	$hosted = true;
         $ldap_host = PLUGIN_PRIVACYIDEA_LDAP_HOST;
         $ldap_port = PLUGIN_PRIVACYIDEA_LDAP_PORT;
         $ldap_user_group = PLUGIN_PRIVACYIDEA_LDAP_USER_GROUP;
