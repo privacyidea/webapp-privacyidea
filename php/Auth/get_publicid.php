@@ -76,7 +76,7 @@ function has_yubikey_attribute($uid) {
         if ($info) {
 		$attribute = ldap_first_attribute($ds, $info);
 		while ($attribute) {
-			if($attribute == "$ldap_yubikey_attribute_config") {
+			if($attribute == $ldap_yubikey_attribute_config) {
 				$has_yubikey = true;
 			}
 			$attribute=ldap_next_attribute($ds,$info);
