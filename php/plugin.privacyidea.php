@@ -97,9 +97,9 @@ class PluginPrivacyIDEA extends Plugin {
 					
 					$_SESSION['privacyIDEAUsername'] = $username; // or from $_POST/$GLOBALS
 					$_SESSION['privacyIDEAPassword'] = $password;
-					$_SESSION['privacyIDEAEcho']['boxTitle'] = dgettext('plugin_privacyidea', 'Please enter code');
+					$_SESSION['privacyIDEAEcho']['boxTitle'] = dgettext('plugin_privacyidea', 'Press Yubikey');
 					$_SESSION['privacyIDEAEcho']['txtCodePlaceholder'] = dgettext('plugin_privacyidea', 'Code');
-					$_SESSION['privacyIDEAEcho']['msgInvalidCode'] = dgettext('plugin_privacyidea', 'Invalid code. Please check code.');
+					$_SESSION['privacyIDEAEcho']['msgInvalidCode'] = dgettext('plugin_privacyidea', 'Invalid token. Please check token.');
 					$_SESSION['privacyIDEAEcho']['butLogin'] = dgettext('plugin_privacyidea', 'Login');
 					$_SESSION['privacyIDEAFingerprint'] = $fingerprint;
 					$_SESSION['privacyIDEAFrontendFingerprint'] = $frontendFingerprint;
